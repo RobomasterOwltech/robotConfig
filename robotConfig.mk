@@ -13,26 +13,23 @@
 
 # ===== Device
 C_DEFS +=  \
--DSTM32F100xB
+-DSTM32F303xE 
 
-Mcu.Name=STM32F407I(E-G)Hx
-PCC.Line=STM32F407/417
-PCC.MCU=STM32F407I(E-G)Hx
-PCC.PartNumber=STM32F407IGHx
 # ===== CPU
-CPU = -mcpu=cortex-m3
-STM32F407xx,ARM_MATH_CM4,__FPU_USED=1U,__FPU_PRESENT=1U,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING
+# STM32F3xx devices are built around a Cortex-M4 
+CPU = -mcpu=cortex-m4
 
 # ===== ARCH
-ARCH = armv7-m
+# TODO: RESEARCH
+# ARCH = armv7-m
 
 # ===== FPU
 ## Floating Point Unit
 ## See more at: https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/ARM-Options.html
-FPU = -msoft-float
+FPU = -mfpu=fpv4-sp-d16
 
 # ===== float-abi
-FLOAT-ABI = -mfloat-abi=soft
+FLOAT-ABI = -mfloat-abi=hard
 
 # ===== MCU
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
@@ -43,7 +40,7 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 # ==============
 
 # This is defined for the container
-FirmwarePath = /opt/STM32CubeF1
+FirmwarePath = /opt/STM32CubeF3
 
 # Check if variable has defined the USE_HAL_DRIVER flag
 HAL_Eval = $(shell echo $(C_DEFS) | grep -c USE_HAL_DRIVER)
@@ -54,9 +51,9 @@ C_INCLUDES +=  \
 
 ifeq ($(HAL_Eval), 1)
 	C_INCLUDES += \
-	-I$(FirmwarePath)/Drivers/STM32F1xx_HAL_Driver/Inc \
-	-I$(FirmwarePath)/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy \
-	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/STM32F1xx/Include \
+	-I$(FirmwarePath)/Drivers/STM32F3xx_HAL_Driver/Inc \
+	-I$(FirmwarePath)/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy \
+	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/STM32F3xx/Include \
 	-I$(FirmwarePath)/Drivers/CMSIS/Include
 endif
 
@@ -73,7 +70,7 @@ $(shell find robotConfig/src/*.c)
 #$(shell find src/*.c")
 
 ifeq ($(HAL_Eval), 1)
-	C_SOURCES +=$(shell find /opt/STM32CubeF1/Drivers/STM32F1xx_HAL_Driver/Src/*.c ! -name *template.c)
+	C_SOURCES +=$(shell find /opt/STM32CubeF3/Drivers/STM32F3xx_HAL_Driver/Src/*.c ! -name *template.c)
 endif
 
 ifdef USE_FREERTOS
@@ -83,12 +80,12 @@ endif
 # ===== ASM Sources
 # TODO: CREATE
 ASM_SOURCES += \
-robotConfig/Startup/startup_stm32f100rbtx.s
+robotConfig/Startup/startup_stm32f303retx.s
 
 # ===== link script
 # TODO: CREATE 
 LDSCRIPT += \
-robotConfig/Startup/STM32F100RBTX_FLASH.ld
+robotConfig/Startup/STM32F303RETX_FLASH.ld
 
 showConfig: 
 	$(info ===== ===== ===== ===== ===== ===== =====)
