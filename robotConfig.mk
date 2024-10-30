@@ -47,6 +47,7 @@ HAL_Eval = $(shell echo $(C_DEFS) | grep -c USE_HAL_DRIVER)
 C_INCLUDES +=  \
 -IrobotConfig/inc
 
+# Add HAL 
 ifeq ($(HAL_Eval), 1)
 	C_INCLUDES += \
 	-I$(FirmwarePath)/Drivers/STM32F1xx_HAL_Driver/Inc \
@@ -55,24 +56,13 @@ ifeq ($(HAL_Eval), 1)
 	-I$(FirmwarePath)/Drivers/CMSIS/Include
 endif
 
-ifdef USE_FREERTOS
-C_INCLUDES += \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/include \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3
-endif
-
 # ===== ===== C Sources
 C_SOURCES += \
 $(shell find robotConfig/src/*.c)
-#$(shell find src/*.c")
 
+# Add HAL 
 ifeq ($(HAL_Eval), 1)
 	C_SOURCES +=$(shell find /opt/STM32CubeF1/Drivers/STM32F1xx_HAL_Driver/Src/*.c ! -name *template.c)
-endif
-
-ifdef USE_FREERTOS
-# TODO: ADD FILES
 endif
 
 # ===== ASM Sources
