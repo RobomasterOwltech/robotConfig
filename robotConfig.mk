@@ -19,7 +19,8 @@ C_DEFS +=  \
 CPU = -mcpu=cortex-m3
 
 # ===== ARCH
-ARCH = armv7-m
+ARCH_ARM = ARM_CM3
+PROC_TYPE = STM32F1xx
 
 # ===== FPU
 ## Floating Point Unit
@@ -50,9 +51,9 @@ C_INCLUDES +=  \
 # Add HAL 
 ifeq ($(HAL_Eval), 1)
 	C_INCLUDES += \
-	-I$(FirmwarePath)/Drivers/STM32F1xx_HAL_Driver/Inc \
-	-I$(FirmwarePath)/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy \
-	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/STM32F1xx/Include \
+	-I$(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Inc \
+	-I$(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Inc/Legacy \
+	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/$(PROC_TYPE)/Include \
 	-I$(FirmwarePath)/Drivers/CMSIS/Include
 endif
 
@@ -62,7 +63,7 @@ $(shell find robotConfig/src/*.c)
 
 # Add HAL 
 ifeq ($(HAL_Eval), 1)
-	C_SOURCES +=$(shell find /opt/STM32CubeF1/Drivers/STM32F1xx_HAL_Driver/Src/*.c ! -name *template.c)
+	C_SOURCES +=$(shell find $(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Src/*.c ! -name *template.c)
 endif
 
 # ===== ASM Sources
