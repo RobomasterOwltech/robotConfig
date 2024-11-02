@@ -21,7 +21,8 @@ CPU = -mcpu=cortex-m4
 
 # ===== ARCH
 # TODO: RESEARCH
-# ARCH = armv7-m
+ARCH_ARM = ARM_CM4F
+PROC_TYPE = STM32F3xx
 
 # ===== FPU
 ## Floating Point Unit
@@ -49,19 +50,13 @@ HAL_Eval = $(shell echo $(C_DEFS) | grep -c USE_HAL_DRIVER)
 C_INCLUDES +=  \
 -IrobotConfig/inc
 
+# Add HAL
 ifeq ($(HAL_Eval), 1)
 	C_INCLUDES += \
-	-I$(FirmwarePath)/Drivers/STM32F3xx_HAL_Driver/Inc \
-	-I$(FirmwarePath)/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy \
-	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/STM32F3xx/Include \
+	-I$(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Inc \
+	-I$(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Inc/Legacy \
+	-I$(FirmwarePath)/Drivers/CMSIS/Device/ST/$(PROC_TYPE)/Include \
 	-I$(FirmwarePath)/Drivers/CMSIS/Include
-endif
-
-ifdef USE_FREERTOS
-C_INCLUDES += \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/include \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
-	-I$(FirmwarePath)/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3
 endif
 
 # ===== ===== C Sources
@@ -70,11 +65,7 @@ $(shell find robotConfig/src/*.c)
 #$(shell find src/*.c")
 
 ifeq ($(HAL_Eval), 1)
-	C_SOURCES +=$(shell find /opt/STM32CubeF3/Drivers/STM32F3xx_HAL_Driver/Src/*.c ! -name *template.c)
-endif
-
-ifdef USE_FREERTOS
-# TODO: ADD FILES
+	C_SOURCES +=$(shell find $(FirmwarePath)/Drivers/$(PROC_TYPE)_HAL_Driver/Src/*.c ! -name *template.c)
 endif
 
 # ===== ASM Sources
