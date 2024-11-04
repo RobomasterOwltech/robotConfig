@@ -8,10 +8,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_hal.h"
 
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
 
 /* Private defines -----------------------------------------------------------*/
 #define B1_Pin GPIO_PIN_13
