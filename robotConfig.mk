@@ -78,7 +78,7 @@ robotConfig/Startup/startup_stm32f303retx.s
 LDSCRIPT += \
 robotConfig/Startup/STM32F303RETX_FLASH.ld
 
-showConfig: 
+showRobotConfig: 
 	$(info ===== ===== ===== ===== ===== ===== =====)
 	$(info This project works with the STM32VLDISCOVERY)
 	$(info Based on your current flags, the config is:)
