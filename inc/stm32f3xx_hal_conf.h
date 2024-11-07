@@ -1,7 +1,7 @@
-/* USER CODE BEGIN Header */
 /**
  ******************************************************************************
  * @file    stm32f3xx_hal_conf.h
+ * @author  MCD Application Team
  * @brief   HAL configuration file.
  ******************************************************************************
  * @attention
@@ -15,7 +15,6 @@
  *
  ******************************************************************************
  */
-/* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F3xx_HAL_CONF_H
@@ -32,48 +31,43 @@ extern "C" {
 /**
  * @brief This is the list of modules to be used in the HAL driver
  */
-
 #define HAL_MODULE_ENABLED
-/*#define HAL_ADC_MODULE_ENABLED   */
-/*#define HAL_CRYP_MODULE_ENABLED   */
+/* #define HAL_ADC_MODULE_ENABLED */
 #define HAL_CAN_MODULE_ENABLED
-/*#define HAL_CEC_MODULE_ENABLED   */
-/*#define HAL_NAND_MODULE_ENABLED   */
-/*#define HAL_NOR_MODULE_ENABLED   */
-/*#define HAL_PCCARD_MODULE_ENABLED   */
-/*#define HAL_SRAM_MODULE_ENABLED   */
-/*#define HAL_HRTIM_MODULE_ENABLED   */
-/*#define HAL_OPAMP_MODULE_ENABLED   */
-/*#define HAL_SDADC_MODULE_ENABLED   */
-/*#define HAL_TSC_MODULE_ENABLED   */
-/*#define HAL_COMP_MODULE_ENABLED   */
-/*#define HAL_CRC_MODULE_ENABLED   */
-/*#define HAL_CRYP_MODULE_ENABLED   */
-/*#define HAL_DAC_MODULE_ENABLED   */
-/*#define HAL_I2S_MODULE_ENABLED   */
-/*#define HAL_IWDG_MODULE_ENABLED   */
-/*#define HAL_LCD_MODULE_ENABLED   */
-/*#define HAL_LPTIM_MODULE_ENABLED   */
-/*#define HAL_RNG_MODULE_ENABLED   */
-/*#define HAL_RTC_MODULE_ENABLED   */
-#define HAL_SPI_MODULE_ENABLED
-#define HAL_TIM_MODULE_ENABLED
-#define HAL_UART_MODULE_ENABLED
-/*#define HAL_USART_MODULE_ENABLED   */
-/*#define HAL_IRDA_MODULE_ENABLED   */
-/*#define HAL_SMARTCARD_MODULE_ENABLED   */
-/*#define HAL_SMBUS_MODULE_ENABLED   */
-/*#define HAL_WWDG_MODULE_ENABLED   */
-/*#define HAL_PCD_MODULE_ENABLED   */
+/* #define HAL_CAN_LEGACY_MODULE_ENABLED */
+/* #define HAL_CEC_MODULE_ENABLED */
+/* #define HAL_COMP_MODULE_ENABLED */
+#define HAL_CORTEX_MODULE_ENABLED
+/* #define HAL_CRC_MODULE_ENABLED */
+/* #define HAL_DAC_MODULE_ENABLED */
+#define HAL_DMA_MODULE_ENABLED
+#define HAL_FLASH_MODULE_ENABLED
+/* #define HAL_SRAM_MODULE_ENABLED */
+/* #define HAL_NOR_MODULE_ENABLED */
+/* #define HAL_NAND_MODULE_ENABLED */
+/* #define HAL_PCCARD_MODULE_ENABLED */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
-/* #define HAL_CAN_LEGACY_MODULE_ENABLED */
-#define HAL_DMA_MODULE_ENABLED
-#define HAL_RCC_MODULE_ENABLED
-#define HAL_FLASH_MODULE_ENABLED
-#define HAL_PWR_MODULE_ENABLED
-#define HAL_CORTEX_MODULE_ENABLED
+/* #define HAL_HRTIM_MODULE_ENABLED */
 #define HAL_I2C_MODULE_ENABLED
+/* #define HAL_I2S_MODULE_ENABLED */
+/* #define HAL_IRDA_MODULE_ENABLED */
+/* #define HAL_IWDG_MODULE_ENABLED */
+/* #define HAL_OPAMP_MODULE_ENABLED */
+/* #define HAL_PCD_MODULE_ENABLED */
+/* #define HAL_PWR_MODULE_ENABLED */
+#define HAL_RCC_MODULE_ENABLED
+/* #define HAL_RTC_MODULE_ENABLED */
+/* #define HAL_SDADC_MODULE_ENABLED */
+/* #define HAL_SMARTCARD_MODULE_ENABLED */
+/* #define HAL_SMBUS_MODULE_ENABLED */
+#define HAL_SPI_MODULE_ENABLED
+#define HAL_TIM_MODULE_ENABLED
+/* #define HAL_TSC_MODULE_ENABLED */
+#define HAL_UART_MODULE_ENABLED
+/* #define HAL_USART_MODULE_ENABLED */
+/* #define HAL_WWDG_MODULE_ENABLED */
+
 /* ########################## HSE/HSI Values adaptation ##################### */
 /**
  * @brief Adjust the value of External High Speed oscillator (HSE) used in your application.
@@ -81,16 +75,16 @@ extern "C" {
  *        (when HSE is used as system clock source, directly or through the PLL).
  */
 #if !defined(HSE_VALUE)
-#define HSE_VALUE ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
-#endif                                /* HSE_VALUE */
+#define HSE_VALUE (8000000U) /*!< Value of the External oscillator in Hz */
+#endif                       /* HSE_VALUE */
 
 /**
  * @brief In the following line adjust the External High Speed oscillator (HSE) Startup
  *        Timeout value
  */
 #if !defined(HSE_STARTUP_TIMEOUT)
-#define HSE_STARTUP_TIMEOUT ((uint32_t)100) /*!< Time out for HSE start up, in ms */
-#endif                                      /* HSE_STARTUP_TIMEOUT */
+#define HSE_STARTUP_TIMEOUT (100U) /*!< Time out for HSE start up, in ms */
+#endif                             /* HSE_STARTUP_TIMEOUT */
 
 /**
  * @brief Internal High Speed oscillator (HSI) value.
@@ -98,22 +92,22 @@ extern "C" {
  *        (when HSI is used as system clock source, directly or through the PLL).
  */
 #if !defined(HSI_VALUE)
-#define HSI_VALUE ((uint32_t)8000000) /*!< Value of the Internal oscillator in Hz*/
-#endif                                /* HSI_VALUE */
+#define HSI_VALUE (8000000U) /*!< Value of the Internal oscillator in Hz*/
+#endif                       /* HSI_VALUE */
 
 /**
  * @brief In the following line adjust the Internal High Speed oscillator (HSI) Startup
  *        Timeout value
  */
 #if !defined(HSI_STARTUP_TIMEOUT)
-#define HSI_STARTUP_TIMEOUT ((uint32_t)5000) /*!< Time out for HSI start up */
-#endif                                       /* HSI_STARTUP_TIMEOUT */
+#define HSI_STARTUP_TIMEOUT (5000U) /*!< Time out for HSI start up */
+#endif                              /* HSI_STARTUP_TIMEOUT */
 
 /**
  * @brief Internal Low Speed oscillator (LSI) value.
  */
 #if !defined(LSI_VALUE)
-#define LSI_VALUE ((uint32_t)40000)
+#define LSI_VALUE (40000U)
 #endif /* LSI_VALUE */ /*!< Value of the Internal Low Speed oscillator in Hz \
                         The real value may vary depending on the variations  \
                         in voltage and temperature.  */
@@ -121,15 +115,15 @@ extern "C" {
  * @brief External Low Speed oscillator (LSE) value.
  */
 #if !defined(LSE_VALUE)
-#define LSE_VALUE ((uint32_t)32768) /*!< Value of the External Low Speed oscillator in Hz */
-#endif                              /* LSE_VALUE */
+#define LSE_VALUE (32768U) /*!< Value of the External Low Speed oscillator in Hz */
+#endif                     /* LSE_VALUE */
 
 /**
  * @brief Time out for LSE start up value in ms.
  */
 #if !defined(LSE_STARTUP_TIMEOUT)
-#define LSE_STARTUP_TIMEOUT ((uint32_t)5000) /*!< Time out for LSE start up, in ms */
-#endif                                       /* LSE_STARTUP_TIMEOUT */
+#define LSE_STARTUP_TIMEOUT (5000U) /*!< Time out for LSE start up, in ms */
+#endif                              /* LSE_STARTUP_TIMEOUT */
 
 /**
  * @brief External clock source for I2S peripheral
@@ -139,8 +133,8 @@ extern "C" {
  *        - External clock not generated on EVAL 373
  */
 #if !defined(EXTERNAL_CLOCK_VALUE)
-#define EXTERNAL_CLOCK_VALUE ((uint32_t)8000000) /*!< Value of the External oscillator in Hz*/
-#endif                                           /* EXTERNAL_CLOCK_VALUE */
+#define EXTERNAL_CLOCK_VALUE (8000000U) /*!< Value of the External oscillator in Hz*/
+#endif                                  /* EXTERNAL_CLOCK_VALUE */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */
@@ -149,14 +143,15 @@ extern "C" {
 /**
  * @brief This is the HAL system configuration section
  */
-
-#define VDD_VALUE ((uint32_t)3300)       /*!< Value of VDD in mv */
-#define TICK_INT_PRIORITY ((uint32_t)15) /*!< tick interrupt priority (lowest by default)  */
-#define USE_RTOS 0
-#define PREFETCH_ENABLE 1
-#define INSTRUCTION_CACHE_ENABLE 0
-#define DATA_CACHE_ENABLE 0
-#define USE_SPI_CRC 0U
+#define VDD_VALUE (3300U) /*!< Value of VDD in mv */
+#define TICK_INT_PRIORITY                                                                      \
+    ((uint32_t)(1U << __NVIC_PRIO_BITS) - 1U) /*!< tick interrupt priority (lowest by default) \
+                                               */
+#define USE_RTOS 0U
+#define PREFETCH_ENABLE 1U
+#define INSTRUCTION_CACHE_ENABLE 0U
+#define DATA_CACHE_ENABLE 0U
+#define USE_SPI_CRC 1U
 
 #define USE_HAL_ADC_REGISTER_CALLBACKS 0U       /* ADC register callback disabled       */
 #define USE_HAL_CAN_REGISTER_CALLBACKS 0U       /* CAN register callback disabled       */
@@ -165,6 +160,7 @@ extern "C" {
 #define USE_HAL_DAC_REGISTER_CALLBACKS 0U       /* DAC register callback disabled       */
 #define USE_HAL_SRAM_REGISTER_CALLBACKS 0U      /* SRAM register callback disabled      */
 #define USE_HAL_SMBUS_REGISTER_CALLBACKS 0U     /* SMBUS register callback disabled     */
+#define USE_HAL_SDADC_REGISTER_CALLBACKS 0U     /* SDADC register callback disabled     */
 #define USE_HAL_NAND_REGISTER_CALLBACKS 0U      /* NAND register callback disabled      */
 #define USE_HAL_NOR_REGISTER_CALLBACKS 0U       /* NOR register callback disabled       */
 #define USE_HAL_PCCARD_REGISTER_CALLBACKS 0U    /* PCCARD register callback disabled    */
@@ -188,7 +184,7 @@ extern "C" {
  * @brief Uncomment the line below to expanse the "assert_param" macro in the
  *        HAL drivers code
  */
-/* #define USE_FULL_ASSERT    1U */
+/*#define USE_FULL_ASSERT    1U*/
 
 /* Includes ------------------------------------------------------------------*/
 /**
