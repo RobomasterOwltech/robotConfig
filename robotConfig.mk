@@ -71,7 +71,7 @@ endif
 # ===== ASM Sources
 # TODO: CREATE
 ASM_SOURCES += \
-robotConfig/Startup/startup_stm32f303retx.s
+robotConfig/Startup/startup_stm32f303xe.s
 
 # ===== link script
 # TODO: CREATE 
