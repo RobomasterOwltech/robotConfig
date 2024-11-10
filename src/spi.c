@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
  ******************************************************************************
  * @file    spi.c
@@ -16,25 +15,13 @@
  *
  ******************************************************************************
  */
-/* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "robotPins.h"
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 SPI_HandleTypeDef hspi2;
 
 /* SPI2 init function */
 void MX_SPI2_Init(void) {
-    /* USER CODE BEGIN SPI2_Init 0 */
-
-    /* USER CODE END SPI2_Init 0 */
-
-    /* USER CODE BEGIN SPI2_Init 1 */
-
-    /* USER CODE END SPI2_Init 1 */
     hspi2.Instance = SPI2;
     hspi2.Init.Mode = SPI_MODE_MASTER;
     hspi2.Init.Direction = SPI_DIRECTION_2LINES;
@@ -52,17 +39,11 @@ void MX_SPI2_Init(void) {
     if (HAL_SPI_Init(&hspi2) != HAL_OK) {
         Error_Handler();
     }
-    /* USER CODE BEGIN SPI2_Init 2 */
-
-    /* USER CODE END SPI2_Init 2 */
 }
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle) {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
     if (spiHandle->Instance == SPI2) {
-        /* USER CODE BEGIN SPI2_MspInit 0 */
-
-        /* USER CODE END SPI2_MspInit 0 */
         /* SPI2 clock enable */
         __HAL_RCC_SPI2_CLK_ENABLE();
 
@@ -78,18 +59,11 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle) {
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
         HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-        /* USER CODE BEGIN SPI2_MspInit 1 */
-
-        /* USER CODE END SPI2_MspInit 1 */
     }
 }
 
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle) {
     if (spiHandle->Instance == SPI2) {
-        /* USER CODE BEGIN SPI2_MspDeInit 0 */
-
-        /* USER CODE END SPI2_MspDeInit 0 */
         /* Peripheral clock disable */
         __HAL_RCC_SPI2_CLK_DISABLE();
 
@@ -99,13 +73,5 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle) {
         PB15     ------> SPI2_MOSI
         */
         HAL_GPIO_DeInit(GPIOB, GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
-
-        /* USER CODE BEGIN SPI2_MspDeInit 1 */
-
-        /* USER CODE END SPI2_MspDeInit 1 */
     }
 }
-
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
