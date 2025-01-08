@@ -24,6 +24,8 @@
 
 /* USER CODE END 0 */
 
+// TODO: Separate F3 and F4 configurations
+
 CAN_HandleTypeDef hcan1;
 CAN_HandleTypeDef hcan2;
 
