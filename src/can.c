@@ -25,9 +25,18 @@
 /* USER CODE END 0 */
 
 // TODO: Separate F3 and F4 configurations
+// https://learning.oreilly.com/library/view/hands-on-rtos-with/9781838826734/e0696474-4d65-4835-bdee-e43200e9ca9a.xhtml
 
 CAN_HandleTypeDef hcan1;
 CAN_HandleTypeDef hcan2;
+
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+
+uint8_t TxData[8];
+uint8_t RxData[8];
+
+uint32_t TxMailbox;
 
 /* CAN1 init function */
 void MX_CAN1_Init(void)
@@ -123,13 +132,11 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-    /* CAN1 interrupt Init */
-    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 6, 0);
-    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
-  /* USER CODE BEGIN CAN1_MspInit 1 */
-    HAL_CAN_Start(&hcan1);
-    HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-  /* USER CODE END CAN1_MspInit 1 */
+    TxHeader.DLC = 8;
+    TxHeader.IDE = CAN_ID_STD;
+    TxHeader.RTR = CAN_RTR_DATA;
+    TxHeader.StdId = 0x123;
+    /* USER CODE END CAN1_MspInit 1 */
   }
   else if(canHandle->Instance==CAN2)
   {
@@ -220,6 +227,7 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 /* USER CODE BEGIN 1 */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1) {
   /* CAN message received */
+  HAL_CAN_GetRxMessage(hcan1, CAN_RX_FIFO0, &RxReader, RxData);
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan2) {
