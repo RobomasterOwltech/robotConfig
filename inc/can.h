@@ -27,8 +27,18 @@ extern "C" {
 #include "robotPins.h"
 
 extern CAN_HandleTypeDef hcan;
+extern CAN_FilterTypeDef filterCanBus;
+
+extern CAN_TxHeaderTypeDef TxHeaderCan;
+extern CAN_RxHeaderTypeDef RxHeaderCan;
 
 void MX_CAN_Init(void);
+
+// TODO: Validate they are not being overwritten
+
+void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle);
+void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle);
+void CAN_FILTER_Init(void);
 
 #ifdef __cplusplus
 }
