@@ -18,6 +18,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_it.h"
 
+#include "cmsis_os.h"
 #include "robotPins.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -104,3 +105,13 @@ void SysTick_Handler(void) { osSystickHandler(); }
  * @brief This function handles TIM1 update and TIM16 interrupts.
  */
 void TIM1_UP_TIM16_IRQHandler(void) { HAL_TIM_IRQHandler(&htim1); }
+
+// Override Interrupt Handlers from startup_stm32f303xe.s
+
+void CAN_RX1_IRQHandler() {}
+
+void USB_HP_CAN_TX_IRQHandler() {}
+
+void USB_LP_CAN_RX0_IRQHandler() {}
+
+void CAN_SCE_IRQHandler() {}

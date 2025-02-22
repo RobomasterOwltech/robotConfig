@@ -32,6 +32,8 @@ extern CAN_FilterTypeDef filterCanBus;
 extern CAN_TxHeaderTypeDef TxHeaderCan;
 extern CAN_RxHeaderTypeDef RxHeaderCan;
 
+extern uint32_t TxMailboxCan;
+
 void MX_CAN_Init(void);
 
 // TODO: Validate they are not being overwritten

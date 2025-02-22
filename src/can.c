@@ -50,6 +50,9 @@ void MX_CAN_Init(void) {
 
 void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle) {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
+    // TODO: eventually we will need to chance types to
+    // accomodate CAN1 and CAN2
+
     if (canHandle->Instance == CAN) {
         /* CAN clock enable */
         __HAL_RCC_CAN1_CLK_ENABLE();
@@ -67,7 +70,13 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle) {
         HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
         // Activate Interrups
-        HAL_CAN_ActivateNotification(&hcan, );
+        /**
+         * @brief Construct a new hal can activatenotification object
+         * This should be the same as calling
+         *   HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 6, 0);
+         *   HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+         **/
+        HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
         /*
         The notifications I believe can com in handy are:
         CAN_IT_TX_MAILBOX_EMPTY - Transmit mailbox empty interrupt
@@ -91,14 +100,12 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle) {
         CAN_IT_ERROR Error Interrupt
         */
 
-        -- -- --Configure the CAN interrupt priority using HAL_NVIC_SetPriority()
-                  Enable the CAN IRQ handler using HAL_NVIC_EnableIRQ() In CAN IRQ handler,
-            call HAL_CAN_IRQHandler
-
-                // Set priority
-                HAL_NVIC_SetPriority(EXTI0_IRQn, 3, 0);
-        // Enable priority
-        HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+        // Configure the CAN interrupt priority using:
+        //  HAL_NVIC_SetPriority()
+        // Enable the CAN IRQ handler using:
+        //  HAL_NVIC_EnableIRQ() In CAN IRQ handler,
+        // TODO: When to call
+        //  HAL_CAN_IRQHandler()
     }
 }
 
@@ -128,11 +135,14 @@ void CAN_FILTER_Init(void) {
     filterCanBus.FilterMaskIdHigh = 0x0000;
     filterCanBus.FilterMaskIdLow = 0x0000;
     filterCanBus.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+    // Tho RM uses CAN_RX_FIFO0;
+
     // This could be useful to group even more from the allowed messages
     // I imagine it to be a "FilterId"
     filterCanBus.FilterBank = 0;
     filterCanBus.FilterMode = CAN_FILTERMODE_IDMASK;
     // We should not be receiving 29 bits ids
+    // Tho RM uses CAN_FILTERSCALE_32BIT
     filterCanBus.FilterScale = CAN_FILTERSCALE_16BIT;
     filterCanBus.FilterActivation = CAN_FILTER_ENABLE;
     HAL_CAN_ConfigFilter(&hcan, &filterCanBus);
